@@ -198,7 +198,7 @@ export default function ScenarioTimeline({ model }: { model: FeasibilityModel })
 function Gantt({ sched }: { sched: ReturnType<typeof computeSchedule> }) {
   const total = sched.totalMonths || 1
   const years = Math.ceil(total / 12)
-  const W = 1040, padL = 330, padR = 22, rowH = 54, padT = 42, padB = 14
+  const W = 1040, padL = 330, padR = 22, rowH = 60, padT = 42, padB = 14
   const barH = 26
   const rows = sched.activities
   const H = padT + rows.length * rowH + padB
@@ -276,8 +276,8 @@ const S: Record<string, React.CSSProperties> = {
   baselineTag: { fontSize: 11, color: 'var(--faint)', fontWeight: 500 },
   optDetail: { fontSize: 12.5, lineHeight: 1.55, margin: '12px 0 0', color: 'var(--ink-soft)' },
 
-  // right column: sticky so the programme is always in view
-  timeline: { flex: '1 1 880px', minWidth: 560, position: 'sticky', top: 74, alignSelf: 'flex-start', maxHeight: 'calc(100vh - 92px)', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 14 },
+  // right column: full height, no inner scrollbar — the page scrolls if needed
+  timeline: { flex: '1 1 880px', minWidth: 560, alignSelf: 'flex-start', display: 'flex', flexDirection: 'column', gap: 14 },
   scoreStrip: { display: 'flex', alignItems: 'stretch', gap: 0, border: '1px solid var(--line)', borderRadius: 'var(--radius)', padding: '16px 8px', background: 'var(--paper)' },
   scoreCol: { flex: 1, padding: '0 16px', display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 },
   scoreDiv: { width: 1, background: 'var(--line)', alignSelf: 'stretch' },
