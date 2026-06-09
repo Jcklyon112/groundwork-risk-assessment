@@ -28,10 +28,10 @@ const STATUS_COLOR: Record<Status, string> = {
   conditional: 'var(--conditional)',
   gating: 'var(--gating)',
 }
-// neutral line tones — the chrome stays greyscale for a light, modern look
-const HAIRLINE = '#e6e7ea'
-const STROKE_SOFT = '#c2c5ca'
-const STROKE_DEF = '#4a4f55'
+// neutral line tones — the chrome stays greyscale; tuned for the white canvas
+const HAIRLINE = 'rgba(17,19,22,0.12)'
+const STROKE_SOFT = 'rgba(17,19,22,0.30)'
+const STROKE_DEF = 'rgba(17,19,22,0.82)'
 const STATUS_LABEL: Record<Status, string> = {
   clear: 'Clear',
   conditional: 'Conditional',
@@ -149,7 +149,7 @@ export default function FeasibilityInstrument({ model }: { model: FeasibilityMod
 
       {/* ── scope, or the selected gate's biggest issue (changes on tap) ── */}
       {activeGate ? (
-        <div style={{ ...S.objective, borderLeft: `3px solid ${STATUS_COLOR[activeGate.status]}` }}>
+        <div className="gw-card" style={{ ...S.objective, borderLeft: `3px solid ${STATUS_COLOR[activeGate.status]}` }}>
           <span style={S.objectiveKicker}>
             Biggest issue · {activeGate.name}
             <span style={{ ...S.issueSev, color: STATUS_COLOR[activeGate.status] }}>{STATUS_LABEL[activeGate.status]}</span>
@@ -161,7 +161,7 @@ export default function FeasibilityInstrument({ model }: { model: FeasibilityMod
           </p>
         </div>
       ) : (
-        <div style={S.objective}>
+        <div className="gw-card" style={S.objective}>
           <span style={S.objectiveKicker}>Scope</span>
           <p style={S.objectiveText}>
             Six regulatory gates stand between the site and a build permit. Each is sized by risk and
@@ -199,8 +199,8 @@ export default function FeasibilityInstrument({ model }: { model: FeasibilityMod
                     transition: 'transform 260ms cubic-bezier(.22,.61,.36,1), opacity 200ms ease',
                   }}
                 >
-                  {/* light status-tinted track for the full wedge */}
-                  <path d={annularSector(cx, cy, rInner, rOuter, w.a0, w.a1)} fill={color} opacity={0.1} style={{ transition: 'opacity 200ms ease' }} />
+                  {/* status-tinted track for the full wedge */}
+                  <path d={annularSector(cx, cy, rInner, rOuter, w.a0, w.a1)} fill={color} opacity={0.16} style={{ transition: 'opacity 200ms ease' }} />
                   {/* readiness fill (inner gauge): height ∝ readiness */}
                   <path d={annularSector(cx, cy, rInner, rFill, w.a0, w.a1)} fill={color} opacity={isActive ? 0.95 : 0.78} style={{ transition: 'opacity 200ms ease' }} />
                   {/* wedge separators + active outline */}
@@ -282,8 +282,9 @@ export default function FeasibilityInstrument({ model }: { model: FeasibilityMod
             })()}
 
             {/* centre — composite (generous vertical rhythm so nothing overlaps) */}
-            <circle cx={cx} cy={cy} r={rInner - 6} fill="var(--paper)" />
-            <text x={cx} y={cy - 48} textAnchor="middle" style={{ fontSize: 12, letterSpacing: 2, fill: 'var(--muted)' }}>
+            <circle cx={cx} cy={cy} r={rInner - 6} fill="var(--paper)" stroke={HAIRLINE} strokeWidth={1} />
+            <circle cx={cx} cy={cy} r={rInner - 18} fill="none" stroke="rgba(17,19,22,0.05)" strokeWidth={1} />
+            <text x={cx} y={cy - 48} textAnchor="middle" style={{ fontSize: 11, letterSpacing: 3, fill: 'var(--faint)', fontFamily: 'var(--font-mono)' }}>
               COMPOSITE
             </text>
             <text x={cx} y={cy + 8} textAnchor="middle" style={{ fontSize: 52, fontWeight: 600, fill: 'var(--ink)', fontFamily: 'var(--font-serif)' }}>
@@ -317,7 +318,7 @@ export default function FeasibilityInstrument({ model }: { model: FeasibilityMod
         </div>
 
         {/* ── detail panel — the gate summary when pinned, overview otherwise ─ */}
-        <aside style={S.panel}>
+        <aside className="gw-card" style={S.panel}>
           {detailGate ? (
             <GateSummary gate={detailGate} onClose={() => setSelected(null)} />
           ) : activeGate ? (
@@ -419,7 +420,7 @@ function Overview({ model }: { model: FeasibilityModel }) {
         </thead>
         <tbody>
           {[...model.gates].sort((a, b) => b.weight - a.weight).map((g) => (
-            <tr key={g.id}>
+            <tr key={g.id} className="gw-row">
               <td style={S.td}>{g.name}</td>
               <td style={S.tdR}><CountUp value={g.weight} suffix="%" /></td>
               <td style={S.tdR}><CountUp value={Math.round(g.readiness * 100)} suffix="%" /></td>
@@ -501,7 +502,7 @@ function GateExtras({ gate }: { gate: Gate }) {
       <div style={{ ...S.section, marginTop: 0, borderTop: 'none', paddingTop: 0 }}>
         <div style={S.sectionLabel}>Supporting facts</div>
         {gate.facts.map((f, i) => (
-          <div key={i} style={S.fact}>
+          <div key={i} className="gw-row" style={S.fact}>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8 }}>
               <span style={{ fontSize: 13, color: 'var(--muted)' }}>{f.label}</span>
               <span style={{ fontSize: 13, fontWeight: 600, textAlign: 'right' }}>
@@ -584,7 +585,7 @@ function Pathway({ model, onPick }: { model: FeasibilityModel; onPick: (gateId: 
         })}
       </div>
       {step && (
-        <div style={S.stepDetail}>
+        <div className="gw-card" style={S.stepDetail}>
           <div style={{ display: 'flex', gap: 10, alignItems: 'baseline', flexWrap: 'wrap' }}>
             <b>{step.label}</b>
             <span style={{ fontSize: 12, color: 'var(--muted)' }}>· {step.authority}</span>
@@ -605,10 +606,10 @@ const S: Record<string, React.CSSProperties> = {
   header: { display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16, borderBottom: '1px solid var(--line)', paddingBottom: 18 },
   h1: { margin: 0, fontSize: 26, fontWeight: 600, letterSpacing: '-0.03em' },
   sub: { margin: '7px 0 0', color: 'var(--muted)', fontSize: 14 },
-  genAt: { fontSize: 12, color: 'var(--faint)', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', whiteSpace: 'nowrap' },
-  mono: { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: 12 },
+  genAt: { fontSize: 12, color: 'var(--faint)', fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' },
+  mono: { fontFamily: 'var(--font-mono)', fontSize: 12 },
   objective: { marginTop: 20, border: '1px solid var(--line)', borderRadius: 'var(--radius)', padding: '18px 22px', background: 'var(--paper)', minHeight: 104, transition: 'border-color 200ms ease' },
-  objectiveKicker: { display: 'inline-flex', alignItems: 'baseline', gap: 10, fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--faint)', marginBottom: 7 },
+  objectiveKicker: { display: 'inline-flex', alignItems: 'baseline', gap: 10, fontSize: 10.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.16em', color: 'var(--faint)', marginBottom: 7, fontFamily: 'var(--font-mono)' },
   objectiveText: { margin: 0, fontSize: 15.5, lineHeight: 1.6, maxWidth: 880, color: 'var(--ink)' },
   issueSev: { fontSize: 10.5, fontWeight: 700, letterSpacing: '0.05em' },
   issueLever: { margin: '11px 0 0', fontSize: 14, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: 880 },

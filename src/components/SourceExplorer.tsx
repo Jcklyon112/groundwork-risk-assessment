@@ -71,7 +71,7 @@ export default function SourceExplorer() {
       {sources.map((s) => {
         const isOpen = open === s.name
         return (
-          <div key={s.name} style={S.row}>
+          <div key={s.name} className="gw-row" style={S.row}>
             <div style={S.rowMain}>
               <div style={S.rowText}>
                 <div style={S.name}>{PRETTY[s.name] ?? s.name}</div>
@@ -116,11 +116,11 @@ const S: Record<string, React.CSSProperties> = {
   rowText: { minWidth: 0, flex: '1 1 420px' },
   name: { fontSize: 14, fontWeight: 600, letterSpacing: '-0.01em' },
   link: { display: 'inline-block', marginTop: 5, fontSize: 12.5, color: 'var(--ink)', textDecoration: 'none', wordBreak: 'break-all' },
-  linkUrl: { color: 'var(--muted)', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: 11.5 },
+  linkUrl: { color: 'var(--muted)', fontFamily: 'var(--font-mono)', fontSize: 11.5 },
   muted: { fontSize: 12, color: 'var(--faint)', marginTop: 5, display: 'inline-block' },
   rowMeta: { display: 'flex', alignItems: 'center', gap: 12, flex: '0 0 auto' },
   badge: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', border: '1px solid', borderRadius: 999, padding: '1px 8px' },
   when: { fontSize: 11.5, color: 'var(--muted)', fontVariantNumeric: 'tabular-nums' },
   codeToggle: { border: '1px solid var(--line-strong)', background: 'var(--paper)', borderRadius: 7, padding: '5px 11px', fontSize: 12, fontWeight: 590, cursor: 'pointer', color: 'var(--ink)', whiteSpace: 'nowrap' },
-  pre: { margin: 0, padding: 16, overflow: 'auto', fontSize: 12, lineHeight: 1.5, fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', maxHeight: 460, borderTop: '1px solid var(--line)', background: 'var(--bg)', color: 'var(--ink-soft)' },
+  pre: { margin: 0, padding: 16, overflow: 'auto', fontSize: 12, lineHeight: 1.5, fontFamily: 'var(--font-mono)', maxHeight: 460, borderTop: '1px solid var(--line)', background: 'var(--bg)', color: 'var(--ink-soft)' },
 }

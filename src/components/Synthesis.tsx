@@ -29,7 +29,7 @@ export default function Synthesis({ model }: { model: FeasibilityModel }) {
   return (
     <div style={S.view}>
       {/* ── recommendation (answer first) ───────────────────────────── */}
-      <section style={S.hero}>
+      <section className="gw-card" style={S.hero}>
         <div style={S.heroMain}>
           <span style={S.kicker}>Recommendation</span>
           <h1 style={S.stance}>
@@ -53,7 +53,7 @@ export default function Synthesis({ model }: { model: FeasibilityModel }) {
       {/* ── value at stake ──────────────────────────────────────────── */}
       <div style={S.stats}>
         {VALUE_AT_STAKE.map((s, i) => (
-          <div key={i} style={S.stat}>
+          <div key={i} className="gw-card" style={S.stat}>
             <span style={S.statLabel}>{s.label}</span>
             <div style={S.statValue}>{s.value} <Cite k={s.src} /></div>
             <span style={S.statSub}><Fr t={s.sub} /></span>
@@ -65,7 +65,7 @@ export default function Synthesis({ model }: { model: FeasibilityModel }) {
       <Section title="The moves that matter" sub="No-regret actions, sequenced to protect the critical path.">
         <div style={S.moves}>
           {MOVES.map((m) => (
-            <div key={m.n} style={S.move}>
+            <div key={m.n} className="gw-card" style={S.move}>
               <div style={S.moveHead}>
                 <span style={S.moveNum}>{m.n}</span>
                 <span style={S.moveTitle}><Fr t={m.title} /> <Cite k={m.src} /></span>
@@ -82,7 +82,7 @@ export default function Synthesis({ model }: { model: FeasibilityModel }) {
 
       {/* ── risk register (what to hit) ─────────────────────────────── */}
       <Section title="Risk register" sub="Each gate, its principal de-risking lever, owner, timing, and effect.">
-        <div style={S.tableWrap}>
+        <div className="gw-card" style={S.tableWrap}>
           <table style={S.table}>
             <thead>
               <tr>
@@ -96,7 +96,7 @@ export default function Synthesis({ model }: { model: FeasibilityModel }) {
             </thead>
             <tbody>
               {RISK_REGISTER.map((r, i) => (
-                <tr key={i}>
+                <tr key={i} className="gw-row">
                   <td style={S.td}>
                     <span style={{ ...S.sev, background: STATUS_COLOR[r.severity] }} />
                     <b>{r.gate}</b>
@@ -117,7 +117,7 @@ export default function Synthesis({ model }: { model: FeasibilityModel }) {
       <Section title="Sequenced roadmap" sub="Actions to start ahead of the investment decision. Seasonal and long-lead items cannot be recovered later.">
         <div style={S.roadmap}>
           {ROADMAP.map((p, i) => (
-            <div key={i} style={S.phase}>
+            <div key={i} className="gw-card" style={S.phase}>
               <div style={S.phaseHead}>
                 <span style={S.phaseWindow}>{p.window}</span>
                 <span style={S.phaseTitle}>{p.title}</span>
@@ -136,7 +136,7 @@ export default function Synthesis({ model }: { model: FeasibilityModel }) {
       <Section title="Regulatory tailwinds" sub="Recent reforms shorten both gating items. They reward only complete dossiers filed early.">
         <div style={S.tailwinds}>
           {TAILWINDS.map((t, i) => (
-            <div key={i} style={S.tail}>
+            <div key={i} className="gw-row" style={S.tail}>
               <div style={S.tailTitle}><Fr t={t.title} /> <Cite k={t.src} /></div>
               <p style={S.tailDetail}><Fr t={t.detail} /></p>
             </div>
@@ -148,7 +148,7 @@ export default function Synthesis({ model }: { model: FeasibilityModel }) {
       <Section title="Timeline evidence" sub="Each schedule band traced to a government objective, regulatory deadline, or comparable build.">
         <div style={S.tailwinds}>
           {TIMELINE_EVIDENCE.map((e, i) => (
-            <div key={i} style={S.tail}>
+            <div key={i} className="gw-row" style={S.tail}>
               <div style={S.tailTitle}>{e.item} <Cite k={e.src} /></div>
               <p style={S.tailDetail}><Fr t={e.basis} /></p>
             </div>
@@ -157,7 +157,7 @@ export default function Synthesis({ model }: { model: FeasibilityModel }) {
       </Section>
 
       {/* ── methodology ─────────────────────────────────────────────── */}
-      <section style={S.method}>
+      <section className="gw-card" style={S.method}>
         <span style={S.sourcesLabel}>Methodology &amp; data provenance</span>
         <p style={S.methodText}>
           Six data axes are fetched live, per parcel, from named French open APIs — land use (Géoportail de
@@ -201,7 +201,7 @@ const S: Record<string, React.CSSProperties> = {
 
   hero: { display: 'flex', gap: 32, alignItems: 'stretch', flexWrap: 'wrap', border: '1px solid var(--line)', borderRadius: 'var(--radius-lg)', padding: 28, background: 'var(--paper)', boxShadow: 'var(--shadow-md)' },
   heroMain: { flex: '1 1 520px', minWidth: 320 },
-  kicker: { display: 'inline-block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--faint)', marginBottom: 10 },
+  kicker: { display: 'inline-block', fontSize: 10.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--accent)', marginBottom: 10, fontFamily: 'var(--font-mono)' },
   stance: { margin: 0, fontSize: 38, fontWeight: 600, letterSpacing: '-0.035em', display: 'flex', alignItems: 'center', gap: 12 },
   stanceDot: { width: 12, height: 12, borderRadius: 999, display: 'inline-block' },
   oneLiner: { margin: '12px 0 0', fontSize: 17, lineHeight: 1.55, color: 'var(--ink-soft)', maxWidth: 640, letterSpacing: '-0.01em' },
@@ -257,7 +257,7 @@ const S: Record<string, React.CSSProperties> = {
   tailTitle: { fontSize: 14, fontWeight: 600, letterSpacing: '-0.01em' },
   tailDetail: { margin: '4px 0 0', fontSize: 13, color: 'var(--muted)', lineHeight: 1.5, maxWidth: 880 },
 
-  method: { marginTop: 40, border: '1px solid var(--line)', borderLeft: '3px solid var(--ink)', borderRadius: 'var(--radius)', padding: '16px 18px', background: 'var(--bg)' },
+  method: { marginTop: 40, border: '1px solid var(--line)', borderLeft: '2px solid var(--accent)', borderRadius: 'var(--radius)', padding: '16px 18px', background: 'var(--paper)' },
   methodText: { margin: '8px 0 0', fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.6, maxWidth: 920 },
   sources: { marginTop: 28, borderTop: '1px solid var(--line)', paddingTop: 18 },
   sourcesLabel: { fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--faint)' },

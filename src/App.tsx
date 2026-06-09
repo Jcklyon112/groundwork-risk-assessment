@@ -141,7 +141,7 @@ function GoalBanner({ model }: { model: FeasibilityModel }) {
           </p>
 
           {/* the chosen target — a swappable input, set apart from the framework copy */}
-          <div style={S.targetBox}>
+          <div className="gw-card" style={S.targetBox}>
             <div style={S.targetTop}>
               <span style={S.targetLabel}>Running on</span>
               <span style={S.targetSwap}>swappable input</span>
@@ -176,11 +176,11 @@ function TabBtn({ id, tab, setTab, children }: { id: Tab; tab: Tab; setTab: (t: 
 }
 
 const S: Record<string, React.CSSProperties> = {
-  appbar: { display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap', padding: '12px 24px', borderBottom: '1px solid var(--line-strong)', position: 'sticky', top: 0, background: 'var(--paper)', zIndex: 30 },
-  brand: { display: 'flex', alignItems: 'center', gap: 11, marginRight: 'auto' },
-  brandMark: { fontSize: 20, color: 'var(--ink)', opacity: 0.85 },
-  brandName: { fontWeight: 700, fontSize: 16, letterSpacing: '0.14em', fontFamily: 'var(--font-serif)' },
-  brandSub: { fontSize: 11.5, color: 'var(--muted)', letterSpacing: 0, marginTop: 1 },
+  appbar: { display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap', padding: '13px 24px', borderBottom: '1px solid var(--line)', position: 'sticky', top: 0, background: 'var(--glass)', WebkitBackdropFilter: 'saturate(140%) blur(18px)', backdropFilter: 'saturate(140%) blur(18px)', zIndex: 30 },
+  brand: { display: 'flex', alignItems: 'center', gap: 13, marginRight: 'auto' },
+  brandMark: { fontSize: 16, color: 'var(--accent)', width: 30, height: 30, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--accent-line)', borderRadius: 'var(--radius)', background: 'var(--accent-soft)' },
+  brandName: { fontWeight: 600, fontSize: 15.5, letterSpacing: '0.2em', fontFamily: 'var(--font-display)' },
+  brandSub: { fontSize: 11, color: 'var(--muted)', letterSpacing: '0.01em', marginTop: 2, fontFamily: 'var(--font-mono)' },
   nav: { display: 'flex', gap: 2, background: 'var(--bg)', border: '1px solid var(--line)', borderRadius: 7, padding: 2 },
   tab: { border: '1px solid transparent', background: 'transparent', borderRadius: 5, padding: '6px 13px', fontSize: 13, fontWeight: 500, cursor: 'pointer', color: 'var(--ink-soft)', transition: 'background 160ms ease, color 160ms ease' },
   tabActive: { background: 'var(--paper)', color: 'var(--ink)', fontWeight: 600, borderColor: 'var(--line-strong)' },
@@ -191,14 +191,14 @@ const S: Record<string, React.CSSProperties> = {
   goal: { borderBottom: '1px solid var(--line)' },
   goalInner: { maxWidth: 1120, margin: '0 auto', padding: '22px 24px', display: 'flex', gap: 32, alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' },
   goalMain: { flex: '1 1 520px', minWidth: 320 },
-  goalKicker: { display: 'inline-block', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--faint)', marginBottom: 8 },
+  goalKicker: { display: 'inline-block', fontSize: 10.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.18em', color: 'var(--accent)', marginBottom: 8, fontFamily: 'var(--font-mono)' },
   goalText: { margin: 0, fontSize: 16.5, lineHeight: 1.55, color: 'var(--ink-soft)', maxWidth: 720, fontWeight: 400, letterSpacing: '-0.01em' },
-  targetBox: { marginTop: 14, display: 'inline-block', minWidth: 320, border: '1px solid var(--line-strong)', borderLeft: '3px solid var(--ink)', borderRadius: 8, padding: '10px 14px', background: 'var(--bg)' },
+  targetBox: { marginTop: 14, display: 'inline-block', minWidth: 320, border: '1px solid var(--line)', borderLeft: '2px solid var(--accent)', borderRadius: 'var(--radius)', padding: '11px 15px', background: 'var(--paper-2)' },
   targetTop: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, marginBottom: 6 },
   targetLabel: { fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'var(--faint)' },
   targetSwap: { fontSize: 9.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--muted)', border: '1px dashed var(--line-strong)', borderRadius: 4, padding: '1px 6px' },
-  targetName: { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: 15, fontWeight: 600, color: 'var(--ink)', letterSpacing: '-0.01em' },
-  targetMeta: { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: 12, color: 'var(--muted)', marginTop: 3 },
+  targetName: { fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600, color: 'var(--ink)', letterSpacing: '-0.01em' },
+  targetMeta: { fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', marginTop: 3 },
   goalStanding: { flex: '0 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 3, paddingLeft: 24, borderLeft: '1px solid var(--line)' },
   standLabel: { fontSize: 10.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--faint)' },
   standRow: { display: 'flex', alignItems: 'baseline', gap: 8 },
@@ -211,7 +211,7 @@ const S: Record<string, React.CSSProperties> = {
   view: { maxWidth: 1120, margin: '0 auto', padding: '32px 24px 72px' },
   viewTitle: { margin: 0, fontSize: 24, fontWeight: 600, letterSpacing: '-0.03em' },
   viewSub: { color: 'var(--muted)', fontSize: 14, margin: '8px 0 22px', maxWidth: 760, lineHeight: 1.6 },
-  json: { border: '1px solid var(--line)', borderRadius: 'var(--radius)', padding: 18, overflow: 'auto', fontSize: 12, lineHeight: 1.5, fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', maxHeight: 640, background: 'var(--paper)', boxShadow: 'var(--shadow-sm)' },
-  code: { fontFamily: 'ui-monospace, monospace', background: 'var(--bg)', borderRadius: 6, padding: '2px 6px', fontSize: 13 },
-  mono: { fontFamily: 'ui-monospace, monospace', fontSize: 12.5 },
+  json: { border: '1px solid var(--line)', borderRadius: 'var(--radius)', padding: 18, overflow: 'auto', fontSize: 12, lineHeight: 1.5, fontFamily: 'var(--font-mono)', maxHeight: 640, background: 'var(--paper)', boxShadow: 'var(--shadow-sm)' },
+  code: { fontFamily: 'var(--font-mono)', background: 'var(--bg)', borderRadius: 6, padding: '2px 6px', fontSize: 13 },
+  mono: { fontFamily: 'var(--font-mono)', fontSize: 12.5 },
 }

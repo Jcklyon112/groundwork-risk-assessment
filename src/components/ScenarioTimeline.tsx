@@ -61,7 +61,7 @@ export default function ScenarioTimeline({ model }: { model: FeasibilityModel })
       <div style={S.grid}>
         {/* ── LEFT: the decisions (scroll) ────────────────────────────── */}
         <section style={S.decisions}>
-          <div style={S.explainer}>
+          <div className="gw-card" style={S.explainer}>
             <span style={S.explainKicker}>Reading the score</span>
             <p style={S.explainText}>
               <b>Composite readiness</b> is how far the project has progressed toward a build-ready position
@@ -80,7 +80,7 @@ export default function ScenarioTimeline({ model }: { model: FeasibilityModel })
           {LEVERS.map((lever, di) => {
             const cur = sel[lever.id] ?? 0
             return (
-              <div key={lever.id} style={S.decision}>
+              <div key={lever.id} className="gw-card" style={S.decision}>
                 <div style={S.decisionHead}>
                   <span style={S.decisionNum}>{di + 1}</span>
                   <div style={{ flex: 1 }}>
@@ -129,7 +129,7 @@ export default function ScenarioTimeline({ model }: { model: FeasibilityModel })
 
         {/* ── RIGHT: the live programme (fixed / sticky) ───────────────── */}
         <aside style={S.timeline}>
-          <div style={S.scoreStrip}>
+          <div className="gw-card" style={S.scoreStrip}>
             <div style={S.scoreCol}>
               <span style={S.scoreLabel}>Composite readiness</span>
               <div style={{ ...S.scoreVal, color: STATUS_COLOR[verdictStatus(scenario.verdict)] }}>
@@ -170,7 +170,7 @@ export default function ScenarioTimeline({ model }: { model: FeasibilityModel })
 
           <Gantt sched={sched} />
 
-          <div style={S.cpBox}>
+          <div className="gw-card" style={S.cpBox}>
             <div style={S.sectionLabel}>Critical path — <CountUp value={sched.totalMonths} duration={450} /> months</div>
             <div style={S.cpChain}>
               {sched.criticalPath.map((id, i) => {
@@ -249,7 +249,7 @@ const S: Record<string, React.CSSProperties> = {
   grid: { display: 'flex', flexWrap: 'wrap', gap: 28, alignItems: 'flex-start' },
 
   decisions: { flex: '1 1 440px', minWidth: 340, display: 'flex', flexDirection: 'column', gap: 14 },
-  explainer: { border: '1px solid var(--line)', borderLeft: '3px solid var(--ink)', borderRadius: 'var(--radius)', padding: '13px 15px', background: 'var(--bg)' },
+  explainer: { border: '1px solid var(--line)', borderLeft: '2px solid var(--accent)', borderRadius: 'var(--radius)', padding: '13px 15px', background: 'var(--paper)' },
   explainKicker: { fontSize: 10.5, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.09em', color: 'var(--faint)' },
   explainText: { margin: '6px 0 0', fontSize: 12.5, lineHeight: 1.55, color: 'var(--ink-soft)' },
   decisionsHead: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 },
@@ -276,8 +276,9 @@ const S: Record<string, React.CSSProperties> = {
   baselineTag: { fontSize: 11, color: 'var(--faint)', fontWeight: 500 },
   optDetail: { fontSize: 12.5, lineHeight: 1.55, margin: '12px 0 0', color: 'var(--ink-soft)' },
 
-  // right column: full height, no inner scrollbar — the page scrolls if needed
-  timeline: { flex: '1 1 880px', minWidth: 560, alignSelf: 'flex-start', display: 'flex', flexDirection: 'column', gap: 14 },
+  // right column: sticky — caught under the app bar, slides with the page as the
+  // decisions on the left scroll. No inner scrollbar; the page scrolls.
+  timeline: { flex: '1 1 880px', minWidth: 560, alignSelf: 'flex-start', position: 'sticky', top: 64, display: 'flex', flexDirection: 'column', gap: 14 },
   scoreStrip: { display: 'flex', alignItems: 'stretch', gap: 0, border: '1px solid var(--line)', borderRadius: 'var(--radius)', padding: '16px 8px', background: 'var(--paper)' },
   scoreCol: { flex: 1, padding: '0 16px', display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 },
   scoreDiv: { width: 1, background: 'var(--line)', alignSelf: 'stretch' },

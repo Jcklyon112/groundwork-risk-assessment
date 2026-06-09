@@ -1,33 +1,52 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   GROUNDWORK — design system
+   High-end light instrument. White canvas, near-black ink, BLACK signal accent.
+   Keeps the engineered language — faint grid, grotesque display, mono technical
+   labels, near-square corners, edge-lit panels. Colour stays reserved for
+   STATUS; the black accent is chrome only (brand, interaction, focus).
+   ═══════════════════════════════════════════════════════════════════════════ */
 :root {
-  /* ── type: Inter (UI/body) + Source Serif Pro (editorial display) ─ */
+  /* ── type ──────────────────────────────────────────────────────────── */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --font-serif: 'Source Serif Pro', Georgia, 'Times New Roman', serif;
+  /* display: Space Grotesk (engineered grotesque). Kept under the legacy
+     --font-serif name so every existing `var(--font-serif)` becomes display. */
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-serif: var(--font-display);
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* ── ink + surface (pure black & white; colour only on status) ──── */
-  --ink: #141414;          /* near-black */
-  --ink-soft: #383838;
-  --muted: #6a6a6a;        /* neutral secondary text */
-  --faint: #9a9a9a;
-  --paper: #ffffff;        /* card surface */
-  --bg: #ffffff;           /* white page */
-  --line: #e3e3e3;         /* defined hairline */
-  --line-strong: #c4c4c4;  /* the hard line */
+  /* ── ink + surface (white, cool-neutral) ──────────────────────────── */
+  --ink: #111316;          /* primary text — near-black */
+  --ink-soft: #3b3f45;     /* secondary text */
+  --muted: #6b7178;        /* tertiary text */
+  --faint: #9aa0a8;        /* labels, kickers, axis */
+  --paper: #ffffff;        /* card / panel surface */
+  --paper-2: #f4f5f6;      /* raised / inset surface */
+  --bg: #ffffff;           /* page canvas — white */
+  --line: rgba(17, 19, 22, 0.10);        /* hairline */
+  --line-strong: rgba(17, 19, 22, 0.20); /* the hard line */
 
-  /* ── toned-down status accents (used sparingly) ────────────────── */
-  --clear: #4f9a78;        /* muted green */
-  --conditional: #c39a45;  /* muted ochre */
-  --gating: #c0584f;       /* muted terracotta */
+  /* ── signal accent = black (chrome only — never a status) ─────────── */
+  --accent: #111316;       /* black */
+  --accent-soft: rgba(17, 19, 22, 0.05);
+  --accent-line: rgba(17, 19, 22, 0.26);
 
-  /* ── flat + crisp: structure comes from hard lines, not shadow ──── */
-  --glass: var(--paper);
-  --glass-strong: var(--paper);
+  /* ── status accents — toned for white, used sparingly ─────────────── */
+  --clear: #3f9d77;        /* green */
+  --conditional: #b9892e;  /* ochre */
+  --gating: #c5564c;       /* terracotta */
+
+  /* ── elevation: soft, clean lift on white ─────────────────────────── */
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-strong: rgba(255, 255, 255, 0.9);
   --glass-line: var(--line-strong);
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: 0 8px 30px rgba(20, 20, 30, 0.08);
-  --radius-sm: 6px;
-  --radius: 8px;
-  --radius-lg: 10px;
+  --shadow-sm: 0 1px 2px rgba(17, 19, 22, 0.05);
+  --shadow-md: 0 6px 24px rgba(17, 19, 22, 0.07);
+  --shadow-lg: 0 24px 60px rgba(17, 19, 22, 0.10);
+
+  /* ── engineered, near-square corners ──────────────────────────────── */
+  --radius-sm: 3px;
+  --radius: 4px;
+  --radius-lg: 6px;
 
   font-family: var(--font-sans);
   color: var(--ink);
@@ -36,32 +55,51 @@
   text-rendering: optimizeLegibility;
   font-synthesis: none;
   letter-spacing: -0.006em;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
 
-/* editorial display: serif headlines, like build.inc */
+/* display: grotesque headlines, tight and engineered */
 h1, h2 {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.022em;
 }
-/* opt-in serif for big figures (composite, stats, deltas) */
-.serif { font-family: var(--font-serif); }
+.serif { font-family: var(--font-display); }
 
 html, body, #root {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background-color: var(--bg);
+}
+html, body { background-color: var(--bg); }
+#root { background: transparent; }  /* let the fixed grid canvas show through */
+
+/* ── the canvas: a faint engineering grid with a whisper of corner vignette.
+   Fixed, behind everything, zero layout cost — the "themed up" precision. */
+body {
+  zoom: 0.8;                 /* global UI scale — tighter, less spread-out */
+  position: relative;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 85% at 50% -5%, rgba(17, 19, 22, 0) 58%, rgba(17, 19, 22, 0.018) 100%),
+    linear-gradient(rgba(17, 19, 22, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 19, 22, 0.025) 1px, transparent 1px),
+    var(--bg);
+  background-size: 100% 100%, 72px 72px, 72px 72px, 100% 100%;
 }
 
-/* Global UI scale — render the whole interface at 80% (tighter, less spread-out). */
-body { zoom: 0.8; }
-
 a { color: inherit; text-underline-offset: 2px; }
+a:hover { text-decoration-color: var(--accent-line); }
 
-::selection { background: rgba(0, 0, 0, 0.08); }
+::selection { background: rgba(17, 19, 22, 0.12); }
 
 /* refined, quiet scrollbars */
 * { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
@@ -72,13 +110,20 @@ a { color: inherit; text-underline-offset: 2px; }
   border: 3px solid transparent;
   background-clip: content-box;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--faint); }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* keyboard focus — black accent ring, never a default browser outline */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--accent-line);
+  border-radius: var(--radius);
+}
 
 /* glass surface utility (frosted, with graceful fallback) */
 .glass {
   background: var(--glass);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(140%) blur(18px);
+  backdrop-filter: saturate(140%) blur(18px);
   border: 1px solid var(--glass-line);
 }
 
@@ -89,6 +134,57 @@ a { color: inherit; text-underline-offset: 2px; }
 }
 .rise { animation: riseIn 460ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
 
+/* ═══ micro-interaction layer ════════════════════════════════════════════
+   The Crusoe/Anduril touch — every surface answers to the pointer with a
+   small, eased lift + edge-brighten; buttons press crisply. Implemented over
+   the components' inline styles, so the hover declarations carry !important
+   to win against the inline base. One easing curve everywhere = coherence. */
+:root { --ease-out: cubic-bezier(0.18, 0.72, 0.24, 1); }
+
+/* cards / panels / tiles — the "boxes" */
+.gw-card {
+  transition:
+    transform 420ms var(--ease-out),
+    box-shadow 420ms var(--ease-out),
+    background-color 280ms ease !important;
+  will-change: transform;
+}
+@media (hover: hover) {
+  /* lift + a 1px edge-ring via shadow spread — brightens the edge WITHOUT
+     recolouring real borders (status / accent left-bars stay intact). */
+  .gw-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md), 0 0 0 1px var(--line-strong) !important;
+  }
+  .gw-card:active {
+    transform: translateY(-1px);
+    transition-duration: 120ms !important;
+  }
+}
+
+/* every button — crisp lift on hover, settle on press */
+button {
+  transition:
+    transform 240ms var(--ease-out),
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    opacity 200ms ease !important;
+}
+@media (hover: hover) {
+  button:not(:disabled):hover { transform: translateY(-1px); }
+  button:not(:disabled):active { transform: translateY(0); transition-duration: 90ms !important; }
+}
+
+/* list / table rows — quiet background wash on hover */
+.gw-row { transition: background-color 200ms ease, box-shadow 200ms ease; }
+@media (hover: hover) {
+  .gw-row:hover { background-color: var(--paper-2); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rise { animation: none; }
+  .gw-card, .gw-card:hover, .gw-card:active,
+  button, button:hover, button:active { transform: none !important; }
 }
