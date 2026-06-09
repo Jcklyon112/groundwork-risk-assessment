@@ -134,57 +134,25 @@ a:hover { text-decoration-color: var(--accent-line); }
 }
 .rise { animation: riseIn 460ms cubic-bezier(0.22, 0.61, 0.36, 1) both; }
 
-/* ═══ micro-interaction layer ════════════════════════════════════════════
-   The Crusoe/Anduril touch — every surface answers to the pointer with a
-   small, eased lift + edge-brighten; buttons press crisply. Implemented over
-   the components' inline styles, so the hover declarations carry !important
-   to win against the inline base. One easing curve everywhere = coherence. */
-:root { --ease-out: cubic-bezier(0.18, 0.72, 0.24, 1); }
-
-/* cards / panels / tiles — the "boxes" */
-.gw-card {
-  transition:
-    transform 420ms var(--ease-out),
-    box-shadow 420ms var(--ease-out),
-    background-color 280ms ease !important;
-  will-change: transform;
-}
-@media (hover: hover) {
-  /* lift + a 1px edge-ring via shadow spread — brightens the edge WITHOUT
-     recolouring real borders (status / accent left-bars stay intact). */
-  .gw-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md), 0 0 0 1px var(--line-strong) !important;
-  }
-  .gw-card:active {
-    transform: translateY(-1px);
-    transition-duration: 120ms !important;
-  }
-}
-
-/* every button — crisp lift on hover, settle on press */
+/* ═══ interaction layer ══════════════════════════════════════════════════
+   Calm only. No lift, no jump on containers — surfaces stay put. Buttons get
+   smooth colour/shadow transitions (no movement); rows get a quiet hover wash.
+   (.gw-card is now an inert marker class — left in place, no visual effect.) */
 button {
   transition:
-    transform 240ms var(--ease-out),
     background-color 200ms ease,
     color 200ms ease,
     border-color 200ms ease,
     box-shadow 200ms ease,
-    opacity 200ms ease !important;
-}
-@media (hover: hover) {
-  button:not(:disabled):hover { transform: translateY(-1px); }
-  button:not(:disabled):active { transform: translateY(0); transition-duration: 90ms !important; }
+    opacity 200ms ease;
 }
 
-/* list / table rows — quiet background wash on hover */
-.gw-row { transition: background-color 200ms ease, box-shadow 200ms ease; }
+/* list / table rows — a quiet background wash on hover (no movement) */
+.gw-row { transition: background-color 200ms ease; }
 @media (hover: hover) {
   .gw-row:hover { background-color: var(--paper-2); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .rise { animation: none; }
-  .gw-card, .gw-card:hover, .gw-card:active,
-  button, button:hover, button:active { transform: none !important; }
 }
