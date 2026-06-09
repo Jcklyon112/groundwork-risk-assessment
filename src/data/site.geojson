@@ -1,0 +1,33 @@
+{
+  "type": "FeatureCollection",
+  "name": "La Janais — canonical site geometry",
+  "note": "Brownfield extent of the former Citroën/PSA/Stellantis plant at Chartres-de-Bretagne (Rennes Métropole). The boundary polygon is the OSM-derived convex hull of the large industrial halls on the plant (edge-length-weighted modal grid bearing 17.5° from North), extracted by the website repo's scripts/process_site.py. The cadastral parcel set was NOT available as parcel polygons in the source repo (its parcels.geojson is a 50k-point heat-eligibility dataset, not cadastre), so this hull is the canonical site extent every adapter queries against. INSEE commune resolved via BAN = 35066 (Chartres-de-Bretagne).",
+  "properties": {
+    "insee": "35066",
+    "commune": "Chartres-de-Bretagne",
+    "campus_point": [-1.706889, 48.060095],
+    "centroid": [-1.706499, 48.058832],
+    "bearing_deg": 17.5,
+    "source": "datacenter-community-app/public/data/site_buildings.geojson (kind=boundary), via scripts/process_site.py over OSM Overpass buildings"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "kind": "boundary", "role": "canonical site extent (brownfield hull)" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-1.71503,48.065298],[-1.713054,48.056143],[-1.710935,48.052224],[-1.709727,48.051981],[-1.699722,48.053483],[-1.698775,48.053687],[-1.698562,48.053835],[-1.698082,48.054926],[-1.696555,48.059436],[-1.703623,48.066329],[-1.703745,48.066424],[-1.704072,48.066551],[-1.714603,48.065917],[-1.71503,48.065298]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "kind": "centroid", "role": "representative point for point-based intersects" },
+      "geometry": { "type": "Point", "coordinates": [-1.706499, 48.058832] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "kind": "campus_point", "role": "campus reference point from site.json" },
+      "geometry": { "type": "Point", "coordinates": [-1.706889, 48.060095] }
+    }
+  ]
+}

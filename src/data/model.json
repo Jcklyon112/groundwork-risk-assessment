@@ -1,0 +1,504 @@
+{
+  "site": {
+    "name": "Data centre campus — La Janais",
+    "commune": "Chartres-de-Bretagne",
+    "insee": "35066",
+    "centroid": [
+      -1.706499,
+      48.058832
+    ],
+    "campus_point": [
+      -1.706889,
+      48.060095
+    ]
+  },
+  "mode": "reference",
+  "generated_at": "2026-06-09T01:03:48.717Z",
+  "gates": [
+    {
+      "id": "env-auth",
+      "name": "Environmental authorization (ICPE)",
+      "short": "Env. auth",
+      "status": "gating",
+      "weight": 35,
+      "readiness": 0.2,
+      "regulation": "ICPE nomenclature (Code de l’environnement) — IED Directive 2010/75/UE",
+      "permitting": [
+        "Confirm ICPE rubriques with DREAL Bretagne (genset thermal total vs 3110 threshold)",
+        "Produce the étude d'impact (IED scope)",
+        "File the dossier de demande d’autorisation environnementale (procédure unique)",
+        "Enquête publique + avis MRAe",
+        "Arrêté préfectoral d’autorisation"
+      ],
+      "rule": "Triggered rubrique 3110 (Combustion ≥ 50 MW, IED) lands in régime Autorisation ⇒ autorisation environnementale required (étude d’impact + enquête publique + avis MRAe). Classification verified 2026-06-08 (gensets sum as \"susceptibles de fonctionner simultanément\"; 3110 régime confirmed by the arrêté du 30 jan. 2025). Discretionary; loi Industrie Verte parallelisation puts a complete dossier at ~9–15 months, but none is filed ⇒ gating, readiness 0.20.",
+      "live": {
+        "value": "Autorisation track — driver: rubrique 3110 (Combustion ≥ 50 MW (IED) — backup diesel genset fleet)",
+        "source": "AIDA / Ineris nomenclature ICPE + legal commentary",
+        "url": "https://aida.ineris.fr/thematiques/3110-combustion-combustibles-installations-dune-puissance-thermique-nominale-totale",
+        "fetched_at": "2026-06-08",
+        "confidence": "high",
+        "notes": [
+          "Autorisation environnementale (the gating, slowest route)",
+          "Autorisation environnementale for an IED combustion installation requires étude d’impact + enquête publique + avis MRAe. The loi Industrie Verte (in force Oct 2024) parallelised the procedure — ~17→9 months for COMPLETE dossiers; plan ~9–15 months from a complete file to arrêté préfectoral. Incomplete or contested files revert toward the old ~17+ months.",
+          "PINM status (Projet d’Intérêt National Majeur, 2025 loi de simplification, Art. 15) accelerates the procedural shell (state-led permis de construire, expedited grid, facilitated protected-species derogation) but does NOT waive the étude d’impact / enquête publique substance. Early DREAL pre-application + a complete dossier is the single biggest schedule lever.",
+          "No dedicated data-centre ICPE rubrique exists; a DC is classified via its support equipment (combustion, fuel, batteries, refrigerants)."
+        ]
+      },
+      "facts": [
+        {
+          "label": "Rubrique 3110 — Combustion ≥ 50 MW (IED) — backup diesel genset fleet",
+          "value": "Autorisation (DRIVER)",
+          "source": "AIDA / Ineris",
+          "url": "https://aida.ineris.fr/thematiques/3110-combustion-combustibles-installations-dune-puissance-thermique-nominale-totale",
+          "fetched_at": "2026-06-08",
+          "confidence": "high"
+        },
+        {
+          "label": "Rubrique 2910 — Combustion 1–50 MW",
+          "value": "Enregistrement",
+          "source": "AIDA / Ineris",
+          "url": "https://aida.ineris.fr/reglementation/2910-combustion-a-lexclusion-installations-visees-rubriques-2770-2771-2971-2931",
+          "fetched_at": "2026-06-08",
+          "confidence": "high"
+        },
+        {
+          "label": "Rubrique 4734 — Diesel / fuel-oil storage for the gensets",
+          "value": "Déclaration",
+          "source": "AIDA / Ineris",
+          "url": "https://aida.ineris.fr/reglementation/4734-produits-petroliers-specifiques-carburants-substitution-essences-naphtas",
+          "fetched_at": "2026-06-08",
+          "confidence": "medium"
+        },
+        {
+          "label": "Rubrique 2925 — Battery charging (UPS / BESS, Li-ion)",
+          "value": "Déclaration",
+          "source": "AIDA / Ineris",
+          "url": "https://aida.ineris.fr/reglementation/2925-ateliers-charge-daccumulateurs-electriques",
+          "fetched_at": "2026-06-08",
+          "confidence": "high"
+        },
+        {
+          "label": "Rubrique 1185 — Fluorinated refrigerant gases (ex-4802)",
+          "value": "Déclaration",
+          "source": "AIDA / Ineris",
+          "url": "https://conseils.xpair.com/actualite_experts/fluides-frigorigenes-evolution-icpe1185.htm",
+          "fetched_at": "2026-06-08",
+          "confidence": "high"
+        },
+        {
+          "label": "Existing site ICPE title (Stellantis Rennes)",
+          "value": "Autorisation · En exploitation avec titre · priorité nationale",
+          "source": "Géorisques — installations classées",
+          "url": "https://www.georisques.gouv.fr/api/v1/installations_classees?latlon=-1.706499%2C48.058832&rayon=2000&page=1&page_size=20",
+          "fetched_at": "2026-06-08T23:04:52.015Z",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "power",
+      "name": "Power — grid connection",
+      "short": "Power",
+      "status": "conditional",
+      "weight": 30,
+      "readiness": 0.4,
+      "regulation": "RTE/Enedis raccordement (HTB); S3REnR Bretagne for injection",
+      "permitting": [
+        "Request an RTE connection study (raccordement HTB) for the ~100 MW consumption draw",
+        "Confirm the Poste de La Janais (90 kV) acceptance / MVA rating",
+        "Separately, register any on-site generation for injection (S3REnR / Caparéseau)",
+        "Convention de raccordement + reinforcement programme"
+      ],
+      "rule": "On-site 90 kV poste exists (head-start) but the 100 MW consumption connection study is not done, poste acceptance not public, and Brittany is an electrical peninsula ⇒ conditional, readiness 0.40.",
+      "live": {
+        "value": "On-site 90 kV Poste de La Janais; 100 MW draw needs a separate RTE study (not initiated)",
+        "source": "RTE/Enedis registre via ODRÉ + OSM (poste)",
+        "url": "https://odre.opendatasoft.com/explore/dataset/registre-national-installation-production-stockage-electricite-agrege/",
+        "fetched_at": "2026-06-08T23:04:53.216Z",
+        "confidence": "medium",
+        "snapshot": true,
+        "notes": [
+          "Values are INJECTION (production/storage) capacity already connected per poste source — the S3REnR/Caparéseau register. This is a non-binding snapshot and relates to the campus’s own generation, NOT to consumption.",
+          "The 100 MW consumption draw is a SEPARATE process: an RTE connection study (HTB) for a new large consumer. It is not represented in this injection register and its acceptance/MVA rating at the on-site Poste de La Janais (90 kV, OSM way 182891598) is not publicly confirmed."
+        ]
+      },
+      "facts": [
+        {
+          "label": "Poste source serving the commune (injection register)",
+          "value": "NOYA5",
+          "source": "RTE/Enedis registre (ODRÉ)",
+          "url": "https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?where=codeinseecommune%3D%2235066%22&select=nominstallation,filiere,postesource,puismaxrac,regime,tensionraccordement&limit=20",
+          "fetched_at": "2026-06-08T23:04:53.216Z",
+          "confidence": "high",
+          "snapshot": true
+        },
+        {
+          "label": "Top poste source in dept. 35 by connected injection capacity",
+          "value": "PLELA — 55 MW connected",
+          "source": "RTE/Enedis registre (ODRÉ)",
+          "url": "https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/records?where=codedepartement%3D%2235%22&group_by=postesource&select=postesource,sum(puismaxrac)%20as%20puis&order_by=puis%20desc&limit=10",
+          "fetched_at": "2026-06-08T23:04:53.216Z",
+          "confidence": "high",
+          "snapshot": true
+        },
+        {
+          "label": "On-site substation",
+          "value": "Poste de La Janais — 90 kV RTE (OSM way 182891598, ref:FR:RTE=JANAI)",
+          "source": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/way/182891598",
+          "fetched_at": "2026-06-08T23:04:53.216Z",
+          "confidence": "high"
+        },
+        {
+          "label": "100 MW consumption draw",
+          "value": "Separate RTE connection study — non-binding, acceptance not public",
+          "source": "CLAUDE.md hard rule (injection ≠ consumption)",
+          "url": "https://www.rte-france.com/",
+          "fetched_at": "2026-06-08T23:04:53.216Z",
+          "confidence": "low",
+          "designTarget": true
+        }
+      ]
+    },
+    {
+      "id": "brownfield",
+      "name": "Brownfield & soil",
+      "short": "Brownfield",
+      "status": "conditional",
+      "weight": 13,
+      "readiness": 0.55,
+      "regulation": "Sites et sols pollués (ICPE cessation, état des sols) + SIS",
+      "permitting": [
+        "Obtain the Stellantis ICPE cessation d’activité / état des sols (when the title is released)",
+        "Diagnostic de pollution (études historiques + investigations)",
+        "Plan de gestion + remediation to the build-ready usage",
+        "Confirm any SIS overlapping the parcels (construction constraints)"
+      ],
+      "rule": "Legacy industrial site: 18 ICPE + 24 CASIAS/BASIAS within 2 km, active Stellantis title ⇒ remediation needed but reconversion is the public plan ⇒ conditional, readiness 0.55.",
+      "live": {
+        "value": "18 ICPE + 24 CASIAS legacy sites within 2 km; remediation scoping required",
+        "source": "Géorisques — installations classées + CASIAS/BASIAS",
+        "url": "https://www.georisques.gouv.fr/api/v1/ssp/casias?latlon=-1.706499%2C48.058832&rayon=2000&page=1&page_size=30",
+        "fetched_at": "2026-06-08T23:04:52.015Z",
+        "confidence": "high",
+        "notes": [
+          "SIS: confirm any Secteur d’Information sur les Sols over the parcels (Géorisques)."
+        ]
+      },
+      "facts": [
+        {
+          "label": "Principal ICPE on site",
+          "value": "STELLANTIS Rennes — Autorisation, En exploitation avec titre",
+          "source": "Géorisques",
+          "url": "https://www.georisques.gouv.fr/api/v1/installations_classees?latlon=-1.706499%2C48.058832&rayon=2000&page=1&page_size=20",
+          "fetched_at": "2026-06-08T23:04:52.015Z",
+          "confidence": "high"
+        },
+        {
+          "label": "CASIAS / BASIAS legacy sites (2 km)",
+          "value": "24",
+          "source": "Géorisques — CASIAS",
+          "url": "https://www.georisques.gouv.fr/api/v1/ssp/casias?latlon=-1.706499%2C48.058832&rayon=2000&page=1&page_size=30",
+          "fetched_at": "2026-06-08T23:04:52.015Z",
+          "confidence": "high"
+        },
+        {
+          "label": "SIS (Secteurs d’Information sur les Sols)",
+          "value": "Confirm any sector over the parcels (Géorisques)",
+          "source": "Géorisques — SIS",
+          "url": "https://www.georisques.gouv.fr/risques/sis/donnees",
+          "fetched_at": "2026-06-08T23:04:52.015Z",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "water",
+      "name": "Water — abstraction & discharge",
+      "short": "Water",
+      "status": "conditional",
+      "weight": 9,
+      "readiness": 0.55,
+      "regulation": "Loi sur l’eau (IOTA); SDAGE Loire-Bretagne; SAGE Vilaine",
+      "permitting": [
+        "Define the cooling make-up source (REUT / rainwater) — avoid the drinking-water captages",
+        "Loi sur l’eau / IOTA declaration or authorisation (abstraction + discharge), under SAGE Vilaine",
+        "Coordinate with the SDAGE Loire-Bretagne low-flow constraints"
+      ],
+      "rule": "Drinking-water captage near/under site in a protection perimeter + 3 historic abstraction points; closed-loop design lowers draw, with the make-up source and IOTA authorisation to be secured ⇒ conditional, readiness 0.55.",
+      "live": {
+        "value": "3 withdrawal points in commune; drinking-water captage in protection perimeter (constraint)",
+        "source": "Hub'Eau — référentiel points de prélèvement",
+        "url": "https://hubeau.eaufrance.fr/api/v1/prelevements/referentiel/points_prelevement?code_commune_insee=35066&size=20",
+        "fetched_at": "2026-06-08T23:04:53.797Z",
+        "confidence": "high",
+        "notes": [
+          "Basin: SDAGE Loire-Bretagne / SAGE Vilaine — low-flow abstraction constraints.",
+          "Design make-up (REUT + rainwater) and the closed-loop draw are DESIGN TARGETS, not fetched facts."
+        ]
+      },
+      "facts": [
+        {
+          "label": "Drinking-water captage near site",
+          "value": "LA MARIONNAIS (FORAGE) (groundwater, since 2005-12-31)",
+          "source": "Hub'Eau / Eau du Bassin Rennais",
+          "url": "https://www.eaudubassinrennais-collectivite.fr/notre-reseau/ressources-eau/captages-de-la-pavais-la-marionnais-fenicat/",
+          "fetched_at": "2026-06-08T23:04:53.797Z",
+          "confidence": "high"
+        },
+        {
+          "label": "Historic site abstraction",
+          "value": "USINE DE STELLANTIS AUTO SAS; USINE DE PEUGEOT CITROEN AUTOMOBILES PCA SA",
+          "source": "Hub'Eau",
+          "url": "https://hubeau.eaufrance.fr/api/v1/prelevements/referentiel/points_prelevement?code_commune_insee=35066&size=20",
+          "fetched_at": "2026-06-08T23:04:53.797Z",
+          "confidence": "high"
+        },
+        {
+          "label": "Closed-loop cooling make-up (design)",
+          "value": "~40 m³/day expected; ≤150 m³/day cap — REUT + rainwater, never the drinking-water aquifer",
+          "source": "Design study (website model)",
+          "url": "https://www.ecologie.gouv.fr/actualites/reutilisation-eaux-usees-traitees-publication-deux-nouveaux-arretes",
+          "fetched_at": "2026-06-08T23:04:53.797Z",
+          "confidence": "low",
+          "designTarget": true
+        }
+      ]
+    },
+    {
+      "id": "land-use",
+      "name": "Land use (PLUi)",
+      "short": "Land use",
+      "status": "conditional",
+      "weight": 8,
+      "readiness": 0.78,
+      "regulation": "PLUi Rennes Métropole (DU_243500139) — zone UI1j",
+      "permitting": [
+        "Read the règlement graphique at the parcel (height H, emprise, biotope V%, parking)",
+        "Retrieve and comply with the OAP sectorielle",
+        "Confirm ZAC + PEB overlay constraints",
+        "File the permis de construire"
+      ],
+      "rule": "Zonage UI1/UI1j permits industrial activity. Règlement graphique read at the parcel: height = hauteur_rl and végétalisation = RL both défer to the règlement littéral (UI1 permissive — gabarit 3,5 m + 45° at limits), parking secteur S4, OAP sectorielle covers the site. Binding numbers resolved to the literal rule ⇒ readiness 0.78; residual = OAP content + PEB.",
+      "live": {
+        "value": "Zoned UI1j — UI1 (zone d’activités — parcs d’activités industrielles); graphic read: height & biotope défer to the literal règlement, parking secteur S4, OAP applies",
+        "source": "GPU API Carto (zone-urba) + Rennes Métropole plans thématiques",
+        "url": "https://apicarto.ign.fr/api/doc/gpu",
+        "fetched_at": "2026-06-08T23:04:57.640Z",
+        "confidence": "high",
+        "notes": [
+          "Document partition DU_243500139.",
+          "Site polygon clips zones: UI1a, UI1b, N, NP, A, UO4, UI1j, UO1, UI1f.",
+          "Hauteur (plan thématique): Renvoi au règlement littéral (zone UI1 — gabarit 3,5 m + 45° aux limites; pas de plafond métrique au plan graphique).",
+          "Coefficient de végétalisation: Renvoi au règlement littéral — within an OAP sector.",
+          "Stationnement: Secteur S4 · règles particulières rp2."
+        ]
+      },
+      "facts": [
+        {
+          "label": "Site zonage (campus core)",
+          "value": "UI1j (typezone U)",
+          "source": "GPU API Carto — zone-urba",
+          "url": "https://apicarto.ign.fr/api/gpu/zone-urba?geom=%7B%22type%22%3A%22Polygon%22%2C%22coordinates%22%3A%5B%5B%5B-1.71503%2C48.065298%5D%2C%5B-1.713054%2C48.056143%5D%2C%5B-1.710935%2C48.052224%5D%2C%5B-1.709727%2C48.051981%5D%2C%5B-1.699722%2C48.053483%5D%2C%5B-1.698775%2C48.053687%5D%2C%5B-1.698562%2C48.053835%5D%2C%5B-1.698082%2C48.054926%5D%2C%5B-1.696555%2C48.059436%5D%2C%5B-1.703623%2C48.066329%5D%2C%5B-1.703745%2C48.066424%5D%2C%5B-1.704072%2C48.066551%5D%2C%5B-1.714603%2C48.065917%5D%2C%5B-1.71503%2C48.065298%5D%5D%5D%7D",
+          "fetched_at": "2026-06-08T23:04:47.131Z",
+          "confidence": "high"
+        },
+        {
+          "label": "Hauteur (plan thématique, lu au parcelle)",
+          "value": "Renvoi au règlement littéral (zone UI1 — gabarit 3,5 m + 45° aux limites; pas de plafond métrique au plan graphique)",
+          "source": "Rennes Métropole — plan thématique hauteurs",
+          "url": "https://data.rennesmetropole.fr/api/records/1.0/search/?dataset=plui-de-rennes-metropole-plan-thematique-du-reglement-des-hauteurs&geofilter.distance=48.060095%2C-1.706889%2C10&rows=5",
+          "fetched_at": "2026-06-08T23:04:57.640Z",
+          "confidence": "high"
+        },
+        {
+          "label": "Coefficient de végétalisation (lu au parcelle)",
+          "value": "Renvoi au règlement littéral",
+          "source": "Rennes Métropole — plan thématique végétalisation",
+          "url": "https://data.rennesmetropole.fr/api/records/1.0/search/?dataset=plui-de-rennes-metropole-plan-thematique-des-regles-du-coefficient-de-vegetalisa&geofilter.distance=48.060095%2C-1.706889%2C10&rows=5",
+          "fetched_at": "2026-06-08T23:04:57.640Z",
+          "confidence": "high"
+        },
+        {
+          "label": "Stationnement (lu au parcelle)",
+          "value": "Secteur S4 · règles particulières rp2",
+          "source": "Rennes Métropole — plan thématique stationnement",
+          "url": "https://data.rennesmetropole.fr/api/records/1.0/search/?dataset=plui-de-rennes-metropole-plan-thematique-stationnement&geofilter.distance=48.060095%2C-1.706889%2C10&rows=5",
+          "fetched_at": "2026-06-08T23:04:57.640Z",
+          "confidence": "high"
+        },
+        {
+          "label": "OAP sectorielle",
+          "value": "Covers the site — content to retrieve and comply with",
+          "source": "Rennes Métropole — plan thématique végétalisation (étiquette OAP)",
+          "url": "https://logement.metropole.rennes.fr/documents-du-plui/",
+          "fetched_at": "2026-06-08T23:04:57.640Z",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "heat",
+      "name": "Heat offtake",
+      "short": "Heat",
+      "status": "conditional",
+      "weight": 5,
+      "readiness": 0.5,
+      "regulation": "Réseau de chaleur urbain (concession); ADEME Fonds Chaleur",
+      "permitting": [
+        "Negotiate a heat-offtake agreement with ENERSUD / ENGIE Solutions (Rennes Sud, 3506C)",
+        "Design the ~2.7 km primary trunk + heat-pump interface station",
+        "Apply for ADEME Fonds Chaleur co-funding for the chaleur fatale recovery"
+      ],
+      "rule": "Campus not on a network; nearest main (Rennes Sud 3506C) ~2708 m away (≫ 200 m threshold) ⇒ connection is a ~2.7 km transport-main cost, not a blocker; offtake volume is a design target ⇒ conditional, readiness 0.50.",
+      "live": {
+        "value": "Nearest réseau de chaleur ~2708 m away (Rennes Sud) — connectable via trunk",
+        "source": "France Chaleur Urbaine (ADEME)",
+        "url": "https://france-chaleur-urbaine.beta.gouv.fr/",
+        "fetched_at": "2026-06-08T23:04:54.546Z",
+        "confidence": "high",
+        "notes": [
+          "Campus point: not eligible (no existing/future network at the site, distance null).",
+          "Threshold: <100 m strongly connectable, 100–200 m feasible; beyond = transport-main cost.",
+          "Now an OBLIGATION: Energy Code L.236 (EU 2023/1791) requires waste-heat reuse for any DC ≥1 MW unless infeasible — designing the offtake is compliance + a litigation shield, not just upside."
+        ]
+      },
+      "facts": [
+        {
+          "label": "Nearest network",
+          "value": "Rennes Sud (3506C) — ENERSUD (ENGIE SOLUTIONS), 58.6% EnR&R, 0.118 kgCO₂/kWh",
+          "source": "France Chaleur Urbaine",
+          "url": "https://france-chaleur-urbaine.beta.gouv.fr/reseaux/3506C",
+          "fetched_at": "2026-06-08T23:04:54.546Z",
+          "confidence": "high"
+        },
+        {
+          "label": "Straight-line distance campus → nearest main",
+          "value": "2708 m",
+          "source": "France Chaleur Urbaine + haversine",
+          "url": "https://france-chaleur-urbaine.beta.gouv.fr/api/v1/eligibility?lat=48.058832&lon=-1.706499",
+          "fetched_at": "2026-06-08T23:04:54.546Z",
+          "confidence": "high"
+        },
+        {
+          "label": "Recoverable heat (~65 MW)",
+          "value": "Design target — forward-looking offtake volume",
+          "source": "site.json (website model)",
+          "url": "https://france-chaleur-urbaine.beta.gouv.fr/",
+          "fetched_at": "2026-06-08T23:04:54.546Z",
+          "confidence": "low",
+          "designTarget": true
+        }
+      ]
+    }
+  ],
+  "composite": 0.3984,
+  "verdict": "CONDITIONAL",
+  "pathway": [
+    {
+      "id": "site-control",
+      "label": "Site control (land assembly)",
+      "authority": "Rennes Métropole (development agency)",
+      "gates": [
+        "land-use",
+        "brownfield"
+      ],
+      "state": "cleared",
+      "note": "ZAC du secteur de La Janais exists (confirmed via GPU info-surf); ~a third of the 100 ha publicly acquired (Région + Département + Rennes Métropole). DC end-use is not secured — Rennes Métropole currently steers the site to other uses."
+    },
+    {
+      "id": "icpe-classification",
+      "label": "ICPE classification",
+      "authority": "DREAL Bretagne",
+      "gates": [
+        "env-auth"
+      ],
+      "state": "cleared",
+      "note": "Régime determined by research: rubrique 3110 (Combustion ≥ 50 MW, IED) → Autorisation. Classification established; the dossier remains to be produced. To be confirmed with DREAL on final genset sizing."
+    },
+    {
+      "id": "etude-impact",
+      "label": "Environmental impact assessment",
+      "authority": "Developer + engineering consultancy",
+      "gates": [
+        "env-auth",
+        "water",
+        "brownfield"
+      ],
+      "state": "cleared",
+      "note": "Mandatory for an IED installation (rubrique 3110). The first deliverable feeding the autorisation environnementale; scoped and ready to produce."
+    },
+    {
+      "id": "auth-env",
+      "label": "Environmental authorisation",
+      "authority": "Préfet of Ille-et-Vilaine (DREAL review)",
+      "gates": [
+        "env-auth"
+      ],
+      "state": "active",
+      "note": "The single binding environmental procedure (procédure unique). Discretionary decision — the engine maps the route, never the outcome. ~12–18+ months; PINM status (2025 law) may accelerate the procedural shell."
+    },
+    {
+      "id": "enquete-publique",
+      "label": "Public inquiry (enquête publique)",
+      "authority": "Appointed inquiry commissioner (administrative court)",
+      "gates": [
+        "env-auth"
+      ],
+      "state": "pending",
+      "note": "Public inquiry within the autorisation environnementale. Required for the IED track."
+    },
+    {
+      "id": "avis-ae",
+      "label": "Environmental-authority opinion (MRAe)",
+      "authority": "MRAe Bretagne (environmental authority)",
+      "gates": [
+        "env-auth",
+        "water"
+      ],
+      "state": "pending",
+      "note": "Independent environmental-authority opinion on the étude d’impact. The MRAe previously commented on the La Janais ZAC (e.g. rainwater-harvesting recommendation)."
+    },
+    {
+      "id": "arrete-prefectoral",
+      "label": "Prefectural order (arrêté préfectoral)",
+      "authority": "Préfet of Ille-et-Vilaine",
+      "gates": [
+        "env-auth"
+      ],
+      "state": "pending",
+      "note": "The prefectural order concluding the autorisation environnementale (with prescriptions). Outcome out of scope."
+    },
+    {
+      "id": "permis-construire",
+      "label": "Building permit (permis de construire)",
+      "authority": "Mayor / Rennes Métropole (State-led under PINM)",
+      "gates": [
+        "land-use"
+      ],
+      "state": "pending",
+      "note": "Building permit under the PLUi (zone UI1/UI1j). Conditional on the règlement graphique reads (height, emprise, biotope) and OAP compliance."
+    },
+    {
+      "id": "build",
+      "label": "Build",
+      "authority": "—",
+      "gates": [],
+      "state": "pending",
+      "note": "Construction start once the environmental authorisation and the building permit are both in hand."
+    }
+  ],
+  "bottleneck": "auth-env",
+  "unresolved": [
+    "[env-auth · #1 leverage] Exact genset thermal total — confirms the 2910-vs-3110 boundary (Enregistrement vs Autorisation). Drives the whole env-auth timeline.",
+    "[power · #2 leverage] 100 MW HTB consumption connection: RTE study not initiated; Poste de La Janais MVA acceptance not public.",
+    "[brownfield · #3 leverage] Obtain the Stellantis ICPE cessation / état des sols (site still in exploitation) and confirm any SIS over the parcels.",
+    "[land-use] Règlement graphique read at the parcel (Rennes plans thématiques): height and végétalisation défer to the règlement littéral (UI1 permissive); parking secteur S4. The binding numbers now follow the literal rule, not a graphic cap — resolved.",
+    "[land-use] OAP sectorielle covers the site (confirmed via the végétalisation plan étiquette) — opposable; retrieve and comply with its content.",
+    "[land-use] ZAC + Plan d’Exposition au Bruit (PEB aérodrome) overlays touch the site — confirm constructibility limits.",
+    "[env-auth] Confirm the total diesel inventory to set the 4734 fuel-storage band (DC/E/A).",
+    "[env-auth] Secure PINM eligibility for La Janais (affects timeline, not classification).",
+    "[water] Secure the cooling make-up source (REUT/rainwater) and the IOTA abstraction/discharge authorisation.",
+    "[water] River-basin abstraction governed by SDAGE Loire-Bretagne and SAGE Vilaine low-flow constraints."
+  ]
+}

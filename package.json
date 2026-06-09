@@ -1,0 +1,36 @@
+{
+  "name": "la-janais-feasibility-engine",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Standalone feasibility engine for the La Janais site — fetches live French regulatory data, computes feasibility, maps the permitting route, renders a radial Pareto instrument.",
+  "scripts": {
+    "dev": "vite",
+    "server": "tsx watch server/index.ts",
+    "dev:all": "concurrently -n web,api -c cyan,green \"vite\" \"tsx watch server/index.ts\"",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "fetch": "tsx src/pipeline/fetchAll.ts",
+    "evaluate": "tsx src/pipeline/evaluate.ts",
+    "pipeline": "tsx src/pipeline/fetchAll.ts && tsx src/pipeline/evaluate.ts",
+    "verify": "esbuild scripts/ssr-check.tsx --bundle --platform=node --format=esm --jsx=automatic --packages=external --outfile=cache/raw/ssr.mjs && node cache/raw/ssr.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.102.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^10.0.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

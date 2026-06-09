@@ -1,0 +1,29 @@
+# dependencies
+node_modules
+
+# build output
+dist
+dist-ssr
+*.tsbuildinfo
+
+# logs
+*.log
+npm-debug.log*
+
+# secrets — the agent's API key (everything else is keyless)
+.env
+.env.local
+
+# editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+*.local
+
+# adapter cache — raw API responses are large (50+ MB). The computed model is
+# committed at src/data/model.json and the trimmed sources manifest at
+# public/sources.json; the bulk cache stays local.
+cache/
+
+# Vercel
+.vercel
