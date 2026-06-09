@@ -56,6 +56,9 @@ html, body, #root {
   background-color: var(--bg);
 }
 
+/* Global UI scale — render the whole interface at 80% (tighter, less spread-out). */
+body { zoom: 0.8; }
+
 a { color: inherit; text-underline-offset: 2px; }
 
 ::selection { background: rgba(0, 0, 0, 0.08); }
